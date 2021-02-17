@@ -51,7 +51,7 @@ Future<void> authenticationInjection() async {
   // bloc
   sl.registerFactory(
     () => AuthenticationBloc(
-      checkToken: sl(),
+      checkTokent: sl(),
       deleteToken: sl(),
       findToken: sl(),
       saveToken: sl(),

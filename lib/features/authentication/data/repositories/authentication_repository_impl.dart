@@ -44,8 +44,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
   @override
   Future<Either<Failure, bool>> checkToken() async {
-    final String token = await dataSources.checkToken();
-    if (token != null && token.isNotEmpty) {
+    final token = await dataSources.checkToken();
+    if (token) {
       return Right(true);
     } else {
       return Left(CacheFailureToken());

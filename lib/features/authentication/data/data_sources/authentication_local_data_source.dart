@@ -11,7 +11,7 @@ abstract class AuthenticationDataSources {
 
   Future<AuthenticationEntity> findToken();
 
-  Future<String> checkToken();
+  Future<bool> checkToken();
 }
 
 const CASHED_AUTHENTICATION = 'CASHED_AUTHENTICATION';
@@ -41,16 +41,16 @@ class AuthenticationDataSourcesImpl implements AuthenticationDataSources {
   }
 
   @override
-  Future<String> checkToken() {
+  Future<bool> checkToken() {
     final jsonAuthentication =
         sharedPreferences.getString(CASHED_AUTHENTICATION);
-    return Future.value(
-        AuthenticationModel.fromJson(json.decode(jsonAuthentication)).token);
-    // if (token != null && token) {
-    //   return Future.value(true);
-    // } else {
-    //   return Future.value(false);
-    // }
+    // return Future.value(
+    //     AuthenticationModel.fromJson(json.decode(jsonAuthentication)).token);
+    if (jsonAuthentication != null ) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
   }
 
   @override

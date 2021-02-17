@@ -16,17 +16,17 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final SaveToken saveToken;
   final DeleteToken deleteToken;
-  final CheckToken checkToken;
+  final CheckToken checkTokent;
   final FindToken findToken;
 
   AuthenticationBloc(
       {@required this.saveToken,
       @required this.deleteToken,
-      @required this.checkToken,
+      @required this.checkTokent,
       @required this.findToken})
       : assert(saveToken != null),
         assert(deleteToken != null),
-        assert(checkToken != null),
+        assert(checkTokent != null),
         super(Empty());
 
   @override
@@ -50,10 +50,10 @@ class AuthenticationBloc
   Stream<AuthenticationState> _mapAppStartedToState() async* {
     try {
       // await findToken(NoParams())
-      final checkToken = await findToken(NoParams());
+      final checkToken = await checkTokent(NoParams());
       //Set this duration to show splash screen.
       await Future.delayed(const Duration(seconds: 4));
-      if (checkToken != null) {
+      if (checkToken != null && checkTokent == false) {
         yield Authenticated();
       } else {
         yield Unauthenticated();
