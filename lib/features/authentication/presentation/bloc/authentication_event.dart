@@ -18,7 +18,7 @@ class logOut extends AuthenticationEvent{
 class logIn extends AuthenticationEvent{
   final String token;
   final String refreshToken;
-  final DateTime expiredToken;
+  final String expiredToken;
 
   logIn({this.token, this.refreshToken, this.expiredToken});
 

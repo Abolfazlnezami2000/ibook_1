@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/exceptions.dart';
+import 'package:flutter_app_clean_auth/features/authentication/data/models/authentication_model.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/entities/authentication.dart';
 import 'package:flutter_app_clean_auth/features/login/data/models/login_model.dart';
 import 'package:http/http.dart' as http;
@@ -15,17 +17,20 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
 
   @override
   Future<AuthenticationEntity> login(LoginModel loginModel) async {
-    final String url = 'https://reqres.in/api/login';
-    final response = await client.post(
-      url,
-      body: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
-    );
+    final String url = 'http://192.168.43.10:8762/auth/signin';
+    final response = await client.post(url,
+        body: json.encode(loginModel.toJson()),
+        headers: {'Content-Type': 'application/json; charset=utf-8'});
     if (response.statusCode == 200) {
-      final responstest = AuthenticationEntity(
-          token: "sdasdasd123123",
-          refreshToken: "asdasdsad134123",
-          expiredToken: DateTime.now());
-      return responstest;
+      final responsforwork = response.body;
+      final finalauthenticationmodel =
+          AuthenticationModel.fromJson(json.decode(responsforwork));
+      final finalauthenticationrespons = AuthenticationEntity(
+        token: finalauthenticationmodel.token,
+        refreshToken: finalauthenticationmodel.refreshToken,
+        expiredToken: 'lkjggdxaujkldfs', //rede
+      );
+      return finalauthenticationrespons;
     } else {
       throw ServerException();
     }

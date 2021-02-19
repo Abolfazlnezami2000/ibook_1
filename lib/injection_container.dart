@@ -51,7 +51,7 @@ Future<void> authenticationInjection() async {
   // bloc
   sl.registerFactory(
     () => AuthenticationBloc(
-      checkTokent: sl(),
+      checkTokenForState: sl(),
       deleteToken: sl(),
       findToken: sl(),
       saveToken: sl(),
@@ -78,7 +78,7 @@ Future<void> loginInjection() async {
   // Use cases Authentication
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   // Bloc Login
-  sl.registerFactory(() => LoginBloc(login: sl(), authenticationBloc: sl()));
+  sl.registerFactory(() => LoginBloc(login: sl(), authenticationBloc: sl<AuthenticationBloc>()));
 
 }
 

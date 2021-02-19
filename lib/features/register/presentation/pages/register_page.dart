@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
-import 'package:flutter_app_clean_auth/core/widgets/test.dart';
+import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
+import 'package:flutter_app_clean_auth/features/login/presentation/pages/login_page.dart';
 import 'package:flutter_app_clean_auth/features/register/presentation/bloc/register_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,65 +20,66 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  BlocProvider<RegisterBloc> buildBody(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<RegisterBloc>(),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 10),
-              // Top half
-              BlocBuilder<RegisterBloc, RegisterState>(
-                // ignore: missing_return
-                builder: (context, state) {
-                  if (state is Empty) {
-                    return Snackbar(massage: 'Start For Login');
-                  } else if (state is Loading) {
-                    return LoadingWidget();
-                  } else if (state is Loaded) {
-                    //return TriviaDisplay(numberTrivia: state.login);////////
-                  } else if (state is Error) {
-                    return Snackbar(massage: 'Start For Login');
-                  }
-                },
-              ),
-              SizedBox(height: 20),
-              // Bottom half
-              RegisterControls()
-            ],
-          ),
-        ),
+  Widget buildBody(BuildContext context) {
+    return BlocProvider<RegisterBloc>(
+      create: (context) => sl<RegisterBloc>(),
+      child: BlocConsumer<RegisterBloc, RegisterState>(
+        listener: (context, state) {
+          if (state is Loaded) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+          }
+        },
+        // ignore: missing_return
+        builder: (context, state) {
+          if (state is Empty) {
+            return PageForSingUp();
+          } else if (state is Loading) {
+            return LoadingWidget();
+          } //else if (state is Loaded) {
+           // return MessageDisplay(message: state.massage);
+          else if (state is Error) {
+            return MessageDisplay(message: state.message);
+          }
+        },
       ),
     );
   }
 }
-class RegisterControls extends StatefulWidget {
-  const RegisterControls({
-    Key key,
-  }) : super(key: key);
 
-  @override
-  _RegisterControlsState createState() => _RegisterControlsState();
-}
-
-class _RegisterControlsState extends State<RegisterControls> {
-  final controller = TextEditingController();
+class PageForSingUp extends StatelessWidget {
+  final controllerUsername = TextEditingController();
+  final controllerPassword = TextEditingController();
+  final controllerFirstName = TextEditingController();
+  final controllerLastName = TextEditingController();
+  final controllerPoneNumber = TextEditingController();
+  final controllerEmail = TextEditingController();
   String inputUsername;
   String inputPassword;
-  String inputPhonenumber;
-  String inputEmail;
   String inputFirstName;
   String inputLastName;
+  String inputPoneNumber;
+  String inputEmail;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(
-      children: <Widget>[
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: size.height * 0.03,
+        ),
+        Text(
+          'SingUp Test For Ebook',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: size.height * 0.03,
+        ),
         TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
+          // --------------------------username
+          controller: controllerUsername,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a Username',
@@ -86,13 +88,13 @@ class _RegisterControlsState extends State<RegisterControls> {
             inputUsername = value;
           },
           onSubmitted: (_) {
-            dispatchConcrete();
+            GoToLoginPage(context);
           },
         ),
-        SizedBox(height: 10),
+        SizedBox(height: size.height * 0.03),
         TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
+          //---------------------------password
+          controller: controllerPassword,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a Password',
@@ -101,43 +103,15 @@ class _RegisterControlsState extends State<RegisterControls> {
             inputPassword = value;
           },
           onSubmitted: (_) {
-            dispatchConcrete();
+            GoToLoginPage(context);
           },
         ),
-        SizedBox(height: 10),
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Input a Phone Number',
-          ),
-          onChanged: (value) {
-            inputPhonenumber = value;
-          },
-          onSubmitted: (_) {
-            dispatchConcrete();
-          },
+        SizedBox(
+          height: size.height * 0.03,
         ),
-        SizedBox(height: 10),
         TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Input a Email',
-          ),
-          onChanged: (value) {
-            inputEmail = value;
-          },
-          onSubmitted: (_) {
-            dispatchConcrete();
-          },
-        ),
-        SizedBox(height: 10),
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
+          //------------------------ first name
+          controller: controllerFirstName,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a First Name',
@@ -146,13 +120,15 @@ class _RegisterControlsState extends State<RegisterControls> {
             inputFirstName = value;
           },
           onSubmitted: (_) {
-            dispatchConcrete();
+            GoToLoginPage(context);
           },
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: size.height * 0.03,
+        ),
         TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
+          // -------------------------Last Name
+          controller: controllerLastName,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a Last Name',
@@ -161,30 +137,70 @@ class _RegisterControlsState extends State<RegisterControls> {
             inputLastName = value;
           },
           onSubmitted: (_) {
-            dispatchConcrete();
+            GoToLoginPage(context);
           },
         ),
-        SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: RaisedButton(
-                child: Text('Register'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-                onPressed: dispatchConcrete,
-              ),
-            ),
-            SizedBox(width: 10),
-          ],
+        SizedBox(
+          height: size.height * 0.03,
+        ),
+        TextField(
+          // --------------------------Phone Number
+          controller: controllerPoneNumber,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Input a Phone Number',
+          ),
+          onChanged: (value) {
+            inputPoneNumber = value;
+          },
+          onSubmitted: (_) {
+            GoToLoginPage(context);
+          },
+        ),
+        SizedBox(
+          height: size.height * 0.03,
+        ),
+        TextField(
+          // ---------------------------email
+          controller: controllerEmail,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Input a Email',
+          ),
+          onChanged: (value) {
+            inputEmail = value;
+          },
+          onSubmitted: (_) {
+            GoToLoginPage(context);
+          },
+        ),
+        SizedBox(
+          height: size.height * 0.03,
+        ),
+        FlatButton(
+          child: RaisedButton(
+            child: Text('Sing Up'),
+            color: Colors.blueAccent,
+            onPressed: () => GoToLoginPage(context),
+          ),
         ),
       ],
     );
   }
 
-  void dispatchConcrete() {
-    controller.clear();
-    BlocProvider.of<RegisterBloc>(context)
-        .add(clickButtonPress(inputUsername,inputPassword,inputPhonenumber,inputEmail,inputFirstName,inputLastName));
+  void GoToLoginPage(context) {
+    controllerUsername.clear();
+    controllerPassword.clear();
+    controllerFirstName.clear();
+    controllerLastName.clear();
+    controllerPoneNumber.clear();
+    controllerEmail.clear();
+    BlocProvider.of<RegisterBloc>(context).add(clickButtonPress(
+        inputUsername,
+        inputPassword,
+        inputPoneNumber,
+        inputEmail,
+        inputFirstName,
+        inputLastName));
   }
 }

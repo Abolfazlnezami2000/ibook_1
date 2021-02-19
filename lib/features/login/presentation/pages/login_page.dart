@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
 import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
 import 'package:flutter_app_clean_auth/features/login/presentation/bloc/login_bloc.dart';
+import 'package:flutter_app_clean_auth/features/register/presentation/pages/register_page.dart';
 import 'package:flutter_app_clean_auth/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,12 +26,7 @@ class LoginPage extends StatelessWidget {
         // ignore: missing_return
         builder: (context, state) {
           if (state is Empty) {
-            return Container(
-              color: Colors.blueAccent,
-              alignment: Alignment.center,
-              height: 250,
-              width: 250,
-            );
+            return pageforlogin();
           } else if (state is Loading) {
             return LoadingWidget();
           } else if (state is Loaded) {
@@ -44,27 +40,29 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class Controler extends StatefulWidget {
-  const Controler({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _LoginControlsState createState() => _LoginControlsState();
-}
-
-class _LoginControlsState extends State<Controler> {
-  final controller = TextEditingController();
+class pageforlogin extends StatelessWidget {
+  final controllerusername = TextEditingController();
+  final controllerpassword = TextEditingController();
   String inputUsername;
   String inputPassword;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(
-      children: <Widget>[
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: size.height * 0.03,
+        ),
+        Text(
+          'Login Test For Ebook',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: size.height * 0.03,
+        ),
         TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a Username',
@@ -73,13 +71,11 @@ class _LoginControlsState extends State<Controler> {
             inputUsername = value;
           },
           onSubmitted: (_) {
-            dispatchConcrete();
+            dispatchConcrete(context);
           },
         ),
-        SizedBox(height: 10),
+        SizedBox(height: size.height * 0.03),
         TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a Password',
@@ -88,43 +84,40 @@ class _LoginControlsState extends State<Controler> {
             inputPassword = value;
           },
           onSubmitted: (_) {
-            dispatchConcrete();
+            dispatchConcrete(context);
           },
         ),
-        SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: RaisedButton(
-                child: Text('Login'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-                onPressed: dispatchConcrete,
-              ),
-            ),
-            SizedBox(width: 10),
-          ],
+        SizedBox(
+          height: size.height * 0.03,
         ),
-        Expanded(
+        FlatButton(
           child: RaisedButton(
-            child: Text('Sing up'),
-            color: Theme.of(context).accentColor,
-            textTheme: ButtonTextTheme.primary,
-            onPressed: dispatchConcrete,
+            child: Text('Login'),
+            color: Colors.blueAccent,
+            onPressed: () => dispatchConcrete(context),
+          ),
+        ),
+        SizedBox(
+          height: size.height * 0.03,
+        ),
+        FlatButton(
+          child: RaisedButton(
+            child: Text('Sing Up'),
+            color: Colors.blueAccent,
+            onPressed: () => GoToRegisterPage(context),
           ),
         ),
       ],
     );
   }
 
-  void dispatchConcrete() {
-    controller.clear();
+  void dispatchConcrete(context) {
     BlocProvider.of<LoginBloc>(context)
         .add(clickButtonPress(inputUsername, inputPassword));
   }
 
-  void gotosingup() {
-    controller.clear();
-    // BlocProvider.of<NumberTriviaBloc>(context).add(GetTriviaForRandomNumber());
+  void GoToRegisterPage(context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 }

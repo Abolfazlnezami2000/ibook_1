@@ -16,7 +16,7 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
     final String url = 'https://reqres.in/api/register';
     final response = await client.post(
       url,
-      body: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+      body: registerModel.toJson(),
     );
     if (response.statusCode == 200) {
       return true;

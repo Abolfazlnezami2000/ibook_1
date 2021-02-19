@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 class AuthenticationEntity extends Equatable {
   final String token;
   final String refreshToken;
-  final DateTime expiredToken;
+  final String expiredToken;
 
   AuthenticationEntity(
       {@required this.token,

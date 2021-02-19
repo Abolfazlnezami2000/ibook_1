@@ -16,17 +16,17 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final SaveToken saveToken;
   final DeleteToken deleteToken;
-  final CheckToken checkTokent;
+  final CheckToken checkTokenForState;
   final FindToken findToken;
 
   AuthenticationBloc(
       {@required this.saveToken,
       @required this.deleteToken,
-      @required this.checkTokent,
+      @required this.checkTokenForState,
       @required this.findToken})
       : assert(saveToken != null),
         assert(deleteToken != null),
-        assert(checkTokent != null),
+        assert(checkTokenForState != null),
         super(Empty());
 
   @override
@@ -50,10 +50,10 @@ class AuthenticationBloc
   Stream<AuthenticationState> _mapAppStartedToState() async* {
     try {
       // await findToken(NoParams())
-      final checkToken = await checkTokent(NoParams());
+      final checkToken = await checkTokenForState(NoParams());
       //Set this duration to show splash screen.
-      await Future.delayed(const Duration(seconds: 4));
-      if (checkToken != null && checkTokent == false) {
+      await Future.delayed(const Duration(seconds: 10));
+      if (checkToken != null && checkToken == true ) { // how work on answer 'rigth(false) and true if (checkToken == true)'
         yield Authenticated();
       } else {
         yield Unauthenticated();
@@ -64,12 +64,12 @@ class AuthenticationBloc
   }
 
   Stream<AuthenticationState> _mapLoggedInToState(
-      String token, String refreshToken, DateTime expiredToken) async* {
-    final bool checkBoolSave = await saveToken(Params(
+      String token, String refreshToken, String expiredToken) async* {
+    final checkBoolSave = await saveToken(Params(
         token: token,
         refreshToken: refreshToken,
-        expiredToken: expiredToken)) as bool;
-    if (checkBoolSave) {
+        expiredToken: expiredToken)) ;
+    if (checkBoolSave == true) {
       yield Authenticated();
     } else {
       yield Unauthenticated();

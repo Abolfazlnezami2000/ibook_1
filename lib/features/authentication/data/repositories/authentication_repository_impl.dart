@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/exceptions.dart';
 import 'package:flutter_app_clean_auth/core/error/failures.dart';
 import 'package:flutter_app_clean_auth/features/authentication/data/data_sources/authentication_local_data_source.dart';
+import 'package:flutter_app_clean_auth/features/authentication/data/models/authentication_model.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/entities/authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/repositories/repository_authentication.dart';
 
@@ -35,7 +36,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   Future<Either<Failure, bool>> saveToken(
       AuthenticationEntity tempAuthentication) async {
     try {
-      dataSources.addAuthentication(tempAuthentication);
+      dataSources.addAuthentication(AuthenticationModel(
+          token: tempAuthentication.token,
+          refreshtoken: tempAuthentication.refreshToken,
+         expiredtoken: tempAuthentication.expiredToken
+      ));
       return Right(true);
     } on CacheException {
       return Right(false);
@@ -48,7 +53,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     if (token) {
       return Right(true);
     } else {
-      return Left(CacheFailureToken());
+      return Right(false);
     }
   }
 }
