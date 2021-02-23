@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/features/register/data/models/register_model.dart';
 import 'package:http/http.dart' as http;
@@ -13,14 +14,19 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
 
   @override
   Future<bool> register(RegisterModel registerModel) async {
-    final String url = 'https://reqres.in/api/register';
-    final response = await client.post(
-      url,
-      body: registerModel.toJson(),
-    );
-    if (response.statusCode == 200) {
-      return true;
-    } else {
+    try {
+      final String url = 'http://192.168.43.10:8762/auth/users';
+      final response = await client.post(
+        url,
+        body: json.encode(registerModel.toJson()),
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
+      ).timeout(Duration(seconds: 5));
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (exception) {
       return false;
     }
   }

@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_clean_auth/core/error/failures.dart';
 import 'package:flutter_app_clean_auth/core/usecases/usecases.dart';
+import 'package:flutter_app_clean_auth/features/authentication/domain/entities/authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/use_cases/check_token_authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/use_cases/delete_token_authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/use_cases/find_token_authentication.dart';
@@ -53,7 +56,8 @@ class AuthenticationBloc
       final checkToken = await checkTokenForState(NoParams());
       //Set this duration to show splash screen.
       await Future.delayed(const Duration(seconds: 10));
-      if (checkToken != null && checkToken == true ) { // how work on answer 'rigth(false) and true if (checkToken == true)'
+      if (checkToken != null && checkToken == true) {
+        // how work on answer 'rigth(false) and true if (checkToken == true)'
         yield Authenticated();
       } else {
         yield Unauthenticated();
@@ -65,15 +69,20 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _mapLoggedInToState(
       String token, String refreshToken, String expiredToken) async* {
-    final checkBoolSave = await saveToken(Params(
-        token: token,
-        refreshToken: refreshToken,
-        expiredToken: expiredToken)) ;
-    if (checkBoolSave == true) {
-      yield Authenticated();
-    } else {
-      yield Unauthenticated();
-    }
+    final Either<Failure, bool> authenticatedOrUnauthenticated =
+        await saveToken(Params(
+            token: token,
+            refreshToken: refreshToken,
+            expiredToken: expiredToken));
+    // if (checkBoolSave == true) {
+    //   yield Authenticated();
+    // } else {
+    //   yield Unauthenticated();
+    // }
+    yield authenticatedOrUnauthenticated.fold(
+      (failure) => Unauthenticated(),
+      (authenticated) => Authenticated(),
+    );
   }
 
   Stream<AuthenticationState> _mapLoggedOutToState() async* {

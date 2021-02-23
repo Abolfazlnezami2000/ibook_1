@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/exceptions.dart';
 import 'package:flutter_app_clean_auth/core/error/failures.dart';
-import 'package:flutter_app_clean_auth/features/authentication/data/data_sources/authentication_local_data_source.dart';
+import 'package:flutter_app_clean_auth/features/authentication/data/data_sources/authentication_remote_data_source.dart';
 import 'package:flutter_app_clean_auth/features/authentication/data/models/authentication_model.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/entities/authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/repositories/repository_authentication.dart';

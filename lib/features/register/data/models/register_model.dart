@@ -33,7 +33,7 @@ class RegisterModel {
       'password': password,
       'phonenumber': phonenumber,
       'email': email,
-      'firstname': firstname,
+      'name': firstname, //change firstname to name
       'lastname': lastname,
     };
   }

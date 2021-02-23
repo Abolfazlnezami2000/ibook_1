@@ -1,62 +1,52 @@
 import 'package:flutter/material.dart';
+import 'file:///C:/Project/Flutter/flutter_app_clean_auth/lib/core/widgets/background.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Container(
-          color: Color.fromARGB(100, 0, 0, 0),
-        ),
-        Center(
+      body: Background(
           child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 100),
+              Container(
+                child: SvgPicture.asset(
+                  'assets/images/splash_book.svg',
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 3,
+                ),
+              ),
+              Container(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 50.0,
-                      child: Icon(
-                        Icons.book_outlined,
-                        size: 48.0,
-                      ),
+                  children: [
+                    SizedBox(
+                      height: 20,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: Text(
-                        'EBook',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                        ),
-                      ),
+                    Text('EBook',
+                        style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
+                  ],
+                ),
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 50,
                     )
                   ],
                 ),
               ),
-              CircularProgressIndicator(),
-              Padding(
-                padding: EdgeInsets.only(top: 16, bottom: 32),
-                child: Text(
-                  'Best App in The World',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
             ],
           ),
-        )
-      ],
-    ));
-    ;
+      ),
+    );
   }
 }

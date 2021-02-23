@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/widgets/splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/widgets/massage_display.dart';
-import 'core/widgets/test.dart';
 import 'features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'features/login/presentation/pages/login_page.dart';
 import 'injection_container.dart' as di;
@@ -24,8 +23,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter EBook',
       debugShowCheckedModeBanner: false,
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      // ),
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF2661FA),
+        scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

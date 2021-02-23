@@ -17,21 +17,29 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
 
   @override
   Future<AuthenticationEntity> login(LoginModel loginModel) async {
-    final String url = 'http://192.168.43.10:8762/auth/signin';
-    final response = await client.post(url,
-        body: json.encode(loginModel.toJson()),
-        headers: {'Content-Type': 'application/json; charset=utf-8'});
-    if (response.statusCode == 200) {
-      final responsforwork = response.body;
-      final finalauthenticationmodel =
-          AuthenticationModel.fromJson(json.decode(responsforwork));
-      final finalauthenticationrespons = AuthenticationEntity(
-        token: finalauthenticationmodel.token,
-        refreshToken: finalauthenticationmodel.refreshToken,
-        expiredToken: 'lkjggdxaujkldfs', //rede
-      );
-      return finalauthenticationrespons;
-    } else {
+
+    try {
+      final String url = 'http://192.168.43.10:8762/auth/signin';
+      final response = await client.post(url,
+          body: json.encode(loginModel.toJson()),
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }).timeout(Duration(seconds: 6));
+
+      if (response.statusCode == 200) {
+        final responsforwork = response.body;
+        final finalauthenticationmodel =
+        AuthenticationModel.fromJson(json.decode(responsforwork));
+        final finalauthenticationrespons = AuthenticationEntity(
+          token: finalauthenticationmodel.token,
+          refreshToken: finalauthenticationmodel.refreshToken,
+          expiredToken: 'kjakjfhgd'//finalauthenticationmodel.expiredToken,
+        );
+        return finalauthenticationrespons;
+      } else {
+        throw ServerException();
+      }
+    } catch (exception) {
       throw ServerException();
     }
   }

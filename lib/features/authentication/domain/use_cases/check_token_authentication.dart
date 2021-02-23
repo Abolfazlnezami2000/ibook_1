@@ -13,6 +13,6 @@ class CheckToken implements UseCase<bool,NoParams>{
   @override
   Future<Either<Failure, bool>> call(NoParams) {
     // TODO: implement call
-    return repository.checkToken();
+    return repository. checkToken();
   }
 }
