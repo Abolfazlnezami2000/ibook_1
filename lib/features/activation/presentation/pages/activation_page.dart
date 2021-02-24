@@ -1,17 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/widgets/background.dart';
-import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
-import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/presentation/pages/page_change_password.dart';
+import 'package:flutter_app_clean_auth/features/activation/presentation/bloc/activation_bloc.dart';
 import 'package:flutter_app_clean_auth/features/login/presentation/pages/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../injection_container.dart';
 
-class SendRecoveryCodePage extends StatelessWidget {
-  String inputusername;
-
+class ActivationPage extends StatelessWidget {
+  String inputCode;
+  String username;
+  ActivationPage(this.username);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +21,9 @@ class SendRecoveryCodePage extends StatelessWidget {
   }
 
   Widget buildBody(BuildContext context) {
-    return BlocProvider<ForgotPasswordBloc>(
-      create: (context) => sl<ForgotPasswordBloc>(),
-      child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
+    return BlocProvider<ActivationBloc>(
+      create: (context) => sl<ActivationBloc>(),
+      child: BlocConsumer<ActivationBloc, ActivationState>(
         listener: (context, state) async {
           if (state is Loaded) {
             Scaffold.of(context)
@@ -39,10 +38,11 @@ class SendRecoveryCodePage extends StatelessWidget {
                 ),
               ));
             await Future.delayed(Duration(seconds: 5));
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => ChangePasswordPage(inputusername)));
+                MaterialPageRoute(builder: (context) => LoginPage()),
+                ModalRoute.withName('/Login'),
+            );
           } else if (state is Loading) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
@@ -73,7 +73,7 @@ class SendRecoveryCodePage extends StatelessWidget {
         },
         // ignore: missing_return
         builder: (context, state) {
-        return SendRecoveryCodeScreen(context);
+          return SendRecoveryCodeScreen(context);
         },
       ),
     );
@@ -91,7 +91,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              "Forgot Password",
+              "Activation",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2661FA),
@@ -105,12 +105,12 @@ class SendRecoveryCodePage extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
               decoration:
-                  InputDecoration(labelText: "Input PhoneNumber or Email"),
+              InputDecoration(labelText: "Input Code"),
               onChanged: (value) {
-                inputusername = value;
+                inputCode = value;
               },
               onSubmitted: (_) {
-                dispatchConcrete(context);
+                dispatchActivationCode(context);
               },
             ),
           ),
@@ -119,7 +119,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             alignment: Alignment.centerRight,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: RaisedButton(
-              onPressed: () => dispatchConcrete(context),
+              onPressed: () => dispatchActivationCode(context),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(80.0)),
               textColor: Colors.white,
@@ -136,40 +136,21 @@ class SendRecoveryCodePage extends StatelessWidget {
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "Send Code",
+                  "Activation",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
           ),
-          Container(
-            alignment: Alignment.centerRight,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: GestureDetector(
-              onTap: () => goToLoginPage(context),
-              child: Text(
-                "Go Back To Login",
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2661FA)),
-              ),
-            ),
-          )
         ],
       ),
     );
   }
 
-  void dispatchConcrete(context) {
-    BlocProvider.of<ForgotPasswordBloc>(context)
-        .add(ClickButtonSendRecoveryCode(inputusername));
-  }
-
-  void goToLoginPage(context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+  void dispatchActivationCode(context) {
+    BlocProvider.of<ActivationBloc>(context)
+        .add(ClickButtonActivation(code: inputCode , username: username));
   }
 
 }

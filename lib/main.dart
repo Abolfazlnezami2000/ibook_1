@@ -23,10 +23,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter EBook',
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      // ),
+      // routes: {
+      //   '/Login': (context) => LoginPage(),
+      // }, // false talk about
       theme: ThemeData(
         primaryColor: Color(0xFF2661FA),
         scaffoldBackgroundColor: Colors.white,

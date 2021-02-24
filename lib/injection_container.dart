@@ -1,4 +1,8 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:flutter_app_clean_auth/features/activation/data/repositories/activation_repository_impl.dart';
+import 'package:flutter_app_clean_auth/features/activation/domain/repositories/activation_repository.dart';
+import 'package:flutter_app_clean_auth/features/activation/domain/use_cases/send_code_activation.dart';
+import 'package:flutter_app_clean_auth/features/activation/presentation/bloc/activation_bloc.dart';
 import 'package:flutter_app_clean_auth/features/authentication/data/data_sources/authentication_remote_data_source.dart';
 import 'package:flutter_app_clean_auth/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/repositories/repository_authentication.dart';
@@ -26,6 +30,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'core/network/network_info.dart';
+import 'features/activation/data/data_sources/activation_remote_data_source.dart';
 import 'features/login/domain/use_cases/login.dart';
 
 final sl = GetIt.instance;
@@ -35,6 +40,7 @@ Future<void> init() async {
   await loginInjection();
   await registerInjection();
   await forgotPasswordInjection();
+  await activationInjection();
 }
 
 Future<void> authenticationInjection() async {
@@ -107,6 +113,19 @@ Future<void> forgotPasswordInjection() async {
   sl.registerLazySingleton<ForgotPasswordRepository>(() =>
       ForgotPasswordRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   // Data Repository Forgot Password
-  sl.registerLazySingleton( //can not add <ForgotPasswordRemoteDataSources>
+  sl.registerLazySingleton(//can not add <ForgotPasswordRemoteDataSources>
       () => ForgotPasswordRemoteDataSourcesImpl(client: sl()));
+}
+
+Future<void> activationInjection() async {
+  // Bloc Activation
+  sl.registerFactory(() => ActivationBloc(usecase: sl()));
+  // Use Case Activation
+  sl.registerLazySingleton(() => SendCodeActivation(sl()));
+  // Repository Activation
+  sl.registerLazySingleton<ActivationRepository>(() =>
+      ActivationRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  // Data Source
+  sl.registerLazySingleton<ActivationRemoteDataSources>(
+      () => ActivationRemoteDataSourcesImpl(client: sl()));
 }

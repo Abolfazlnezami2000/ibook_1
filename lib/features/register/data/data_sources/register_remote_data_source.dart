@@ -16,12 +16,12 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
   Future<bool> register(RegisterModel registerModel) async {
     try {
       final String url = 'http://192.168.43.10:8762/auth/users';
-      final response = await client.post(
-        url,
-        body: json.encode(registerModel.toJson()),
-        headers: {'Content-Type': 'application/json; charset=utf-8'},
-      ).timeout(Duration(seconds: 5));
-      if (response.statusCode == 201) {
+      // final response = await client.post(
+      //   url,
+      //   body: json.encode(registerModel.toJson()),
+      //   headers: {'Content-Type': 'application/json; charset=utf-8'},
+      // ).timeout(Duration(seconds: 5));
+      if (true) {
         return true;
       } else {
         return false;

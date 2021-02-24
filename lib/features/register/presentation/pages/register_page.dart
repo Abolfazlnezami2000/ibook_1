@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
 import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
+import 'package:flutter_app_clean_auth/features/activation/presentation/pages/activation_page.dart';
 import 'package:flutter_app_clean_auth/features/login/presentation/pages/login_page.dart';
 import 'file:///C:/Project/Flutter/flutter_app_clean_auth/lib/core/widgets/background.dart';
 import 'package:flutter_app_clean_auth/features/register/presentation/bloc/register_bloc.dart';
@@ -9,6 +10,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 
 class RegisterPage extends StatelessWidget {
+  final controllerUsername = TextEditingController();
+  final controllerPassword = TextEditingController();
+  final controllerFirstName = TextEditingController();
+  final controllerLastName = TextEditingController();
+  final controllerPoneNumber = TextEditingController();
+  final controllerEmail = TextEditingController();
+  String inputUsername;
+  String inputPassword;
+  String inputFirstName;
+  String inputLastName = '1';
+  String inputPoneNumber = '1';
+  String inputEmail;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +51,7 @@ class RegisterPage extends StatelessWidget {
               ));
             await Future.delayed(Duration(seconds: 5));
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
+                context, MaterialPageRoute(builder: (context) => ActivationPage(inputUsername)));
           } else if (state is Loading) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
@@ -69,195 +83,13 @@ class RegisterPage extends StatelessWidget {
         },
         // ignore: missing_return
         builder: (context, state) {
-          if (state is Empty) {
-            return RegisterScreen();
-          } else if (state is Loading) {
-            return LoadingWidget();
-          } //else if (state is Loaded) {
-          // return MessageDisplay(message: state.massage);
-          else if (state is Error) {
-            return MessageDisplay(message: state.message);
-          }
+          return RegisterScreen(context);
         },
       ),
     );
   }
-}
-//
-// class PageForSingUp extends StatelessWidget {
-//   final controllerUsername = TextEditingController();
-//   final controllerPassword = TextEditingController();
-//   final controllerFirstName = TextEditingController();
-//   final controllerLastName = TextEditingController();
-//   final controllerPoneNumber = TextEditingController();
-//   final controllerEmail = TextEditingController();
-//   String inputUsername;
-//   String inputPassword;
-//   String inputFirstName;
-//   String inputLastName;
-//   String inputPoneNumber;
-//   String inputEmail;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         Text(
-//           'SingUp Test For Ebook',
-//           style: TextStyle(fontWeight: FontWeight.bold),
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         TextField(
-//           // --------------------------username
-//           controller: controllerUsername,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Username',
-//           ),
-//           onChanged: (value) {
-//             inputUsername = value;
-//           },
-//           onSubmitted: (_) {
-//             GoToLoginPage(context);
-//           },
-//         ),
-//         SizedBox(height: size.height * 0.03),
-//         TextField(
-//           //---------------------------password
-//           controller: controllerPassword,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Password',
-//           ),
-//           onChanged: (value) {
-//             inputPassword = value;
-//           },
-//           onSubmitted: (_) {
-//             GoToLoginPage(context);
-//           },
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         TextField(
-//           //------------------------ first name
-//           controller: controllerFirstName,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a First Name',
-//           ),
-//           onChanged: (value) {
-//             inputFirstName = value;
-//           },
-//           onSubmitted: (_) {
-//             GoToLoginPage(context);
-//           },
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         TextField(
-//           // -------------------------Last Name
-//           controller: controllerLastName,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Last Name',
-//           ),
-//           onChanged: (value) {
-//             inputLastName = value;
-//           },
-//           onSubmitted: (_) {
-//             GoToLoginPage(context);
-//           },
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         TextField(
-//           // --------------------------Phone Number
-//           controller: controllerPoneNumber,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Phone Number',
-//           ),
-//           onChanged: (value) {
-//             inputPoneNumber = value;
-//           },
-//           onSubmitted: (_) {
-//             GoToLoginPage(context);
-//           },
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         TextField(
-//           // ---------------------------email
-//           controller: controllerEmail,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Email',
-//           ),
-//           onChanged: (value) {
-//             inputEmail = value;
-//           },
-//           onSubmitted: (_) {
-//             GoToLoginPage(context);
-//           },
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         FlatButton(
-//           child: RaisedButton(
-//             child: Text('Sing Up'),
-//             color: Colors.blueAccent,
-//             onPressed: () => GoToLoginPage(context),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   void GoToLoginPage(context) {
-//     controllerUsername.clear();
-//     controllerPassword.clear();
-//     controllerFirstName.clear();
-//     controllerLastName.clear();
-//     controllerPoneNumber.clear();
-//     controllerEmail.clear();
-//     BlocProvider.of<RegisterBloc>(context).add(clickButtonPress(
-//         inputUsername,
-//         inputPassword,
-//         inputPoneNumber,
-//         inputEmail,
-//         inputFirstName,
-//         inputLastName));
-//   }
-// }
 
-class RegisterScreen extends StatelessWidget {
-  final controllerUsername = TextEditingController();
-  final controllerPassword = TextEditingController();
-  final controllerFirstName = TextEditingController();
-  final controllerLastName = TextEditingController();
-  final controllerPoneNumber = TextEditingController();
-  final controllerEmail = TextEditingController();
-  String inputUsername;
-  String inputPassword;
-  String inputFirstName;
-  String inputLastName = '1';
-  String inputPoneNumber = '1';
-  String inputEmail;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget RegisterScreen(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -410,3 +242,4 @@ class RegisterScreen extends StatelessWidget {
     }
   }
 }
+

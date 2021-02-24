@@ -7,45 +7,47 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Background(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 100),
-              Container(
-                child: SvgPicture.asset(
-                  'assets/images/splash_book.svg',
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: MediaQuery.of(context).size.height / 3,
+      body: SingleChildScrollView(
+        child: Background(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 100),
+                Container(
+                  child: SvgPicture.asset(
+                    'assets/images/splash_book.svg',
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.height / 3,
+                  ),
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text('EBook',
-                        style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
-                  ],
+                Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text('EBook',
+                          style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    CircularProgressIndicator(),
-                    SizedBox(
-                      height: 50,
-                    )
-                  ],
+                Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 50,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
 import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
 import 'package:flutter_app_clean_auth/features/forgot_password/presentation/pages/page_send_recovery_code.dart';
@@ -9,6 +10,11 @@ import 'package:flutter_app_clean_auth/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
+  final controllerUsername = TextEditingController();
+  final controllerPassword = TextEditingController();
+  String inputUsername;
+  String inputPassword;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +78,7 @@ class LoginPage extends StatelessWidget {
         // ignore: missing_return
         builder: (context, state) {
           if (state is Empty) {
-            return LoginScreen();
+            return LoginScreen(context);
           } else if (state is Loading) {
             return LoadingWidget();
           } //else if (state is Loaded) {
@@ -84,16 +90,8 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class LoginScreen extends StatelessWidget {
-  final controllerUsername = TextEditingController();
-  final controllerPassword = TextEditingController();
-  String inputUsername;
-  String inputPassword;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget LoginScreen(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -103,8 +101,7 @@ class LoginScreen extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Text(
-              "LOGIN",
+            child: Text(TextForAllApp.headerLogin,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2661FA),
@@ -225,84 +222,4 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-// class pageforlogin extends StatelessWidget {
-//   final controllerusername = TextEditingController();
-//   final controllerpassword = TextEditingController();
-//   String inputUsername;
-//   String inputPassword;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         Text(
-//           'Login Test For Ebook',
-//           style: TextStyle(fontWeight: FontWeight.bold),
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         TextField(
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Username',
-//           ),
-//           onChanged: (value) {
-//             inputUsername = value;
-//           },
-//           onSubmitted: (_) {
-//             dispatchConcrete(context);
-//           },
-//         ),
-//         SizedBox(height: size.height * 0.03),
-//         TextField(
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             hintText: 'Input a Password',
-//           ),
-//           onChanged: (value) {
-//             inputPassword = value;
-//           },
-//           onSubmitted: (_) {
-//             dispatchConcrete(context);
-//           },
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         FlatButton(
-//           child: RaisedButton(
-//             child: Text('Login'),
-//             color: Colors.blueAccent,
-//             onPressed: () => dispatchConcrete(context),
-//           ),
-//         ),
-//         SizedBox(
-//           height: size.height * 0.03,
-//         ),
-//         FlatButton(
-//           child: RaisedButton(
-//             child: Text('Sing Up'),
-//             color: Colors.blueAccent,
-//             onPressed: () => GoToRegisterPage(context),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   void dispatchConcrete(context) {
-//     BlocProvider.of<LoginBloc>(context)
-//         .add(clickButtonPress(inputUsername, inputPassword));
-//   }
-//
-//   void GoToRegisterPage(context) {
-//     Navigator.push(
-//         context, MaterialPageRoute(builder: (context) => RegisterPage()));
-//   }
-// }
+

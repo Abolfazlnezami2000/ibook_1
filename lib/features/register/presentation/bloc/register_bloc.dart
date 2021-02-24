@@ -23,7 +23,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async* {
     if (event is clickButtonPress) {
       yield Loading();
-      //yield* _startProcessLogin(event.username, event.password);
+      await Future.delayed(Duration(seconds: 5));
       final Either<Failure, bool> failureOrRegister =
           await register(Params(
               username: event.username,
@@ -36,7 +36,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         (failure) => Error(message: 'ERROR'),
         (respons) {
           if (respons) {
-            return Loaded(massage: 'successfully Login');
+            return Loaded(massage: 'successfully Register');
           } else {
             return Error(message: 'Error');
           }

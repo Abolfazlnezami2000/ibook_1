@@ -13,6 +13,7 @@ class ClickButtonSendRecoveryCode extends ForgotPasswordEvent{
 
 }
 class ClickButtonChangePassword extends ForgotPasswordEvent{
+
   final String code;
   final String password;
   final String username;
