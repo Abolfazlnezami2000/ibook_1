@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'package:flutter_app_clean_auth/core/widgets/background.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
 import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
@@ -92,7 +93,7 @@ class ChangePasswordPage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              "Forgot Password",
+              ConstantText.headerResatPasswordPage,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2661FA),
@@ -105,7 +106,7 @@ class ChangePasswordPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Input Code"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldRecoveryCode),
               onChanged: (value) {
                 inputCode = value;
               },
@@ -119,7 +120,7 @@ class ChangePasswordPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Input New Password"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldNewPassword),
               onChanged: (value) {
                 inputCodeMain = value;
               },
@@ -134,7 +135,7 @@ class ChangePasswordPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Input New Password Again"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldNewPasswordAgain),
               onChanged: (value) {
                 inputCodeAgain = value;
               },
@@ -166,7 +167,7 @@ class ChangePasswordPage extends StatelessWidget {
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "Change Password",
+                  ConstantText.buttonChangePassword,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),

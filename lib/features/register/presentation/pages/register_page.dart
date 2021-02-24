@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
 import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
 import 'package:flutter_app_clean_auth/features/activation/presentation/pages/activation_page.dart';
@@ -100,7 +101,7 @@ class RegisterPage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              "REGISTER",
+              ConstantText.headerRegisterScreen,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2661FA),
@@ -113,7 +114,7 @@ class RegisterPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Name"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldName),
               onChanged: (value) {
                 inputFirstName = value;
               },
@@ -127,7 +128,7 @@ class RegisterPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Email"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldEmail),
               onChanged: (value) {
                 inputEmail = value;
               },
@@ -141,7 +142,7 @@ class RegisterPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Username"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldUsername),
               onChanged: (value) {
                 inputUsername = value;
               },
@@ -155,7 +156,7 @@ class RegisterPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldPassword),
               obscureText: true,
               onChanged: (value) {
                 inputPassword = value;
@@ -187,7 +188,7 @@ class RegisterPage extends StatelessWidget {
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "SIGN UP",
+                  ConstantText.buttonRegister,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -203,7 +204,7 @@ class RegisterPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => LoginPage()))
               },
               child: Text(
-                "Already Have an Account? Sign in",
+                ConstantText.buttonSingUpToLogin,
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,

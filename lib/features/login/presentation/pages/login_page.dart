@@ -10,6 +10,7 @@ import 'package:flutter_app_clean_auth/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
+
   final controllerUsername = TextEditingController();
   final controllerPassword = TextEditingController();
   String inputUsername;
@@ -101,7 +102,7 @@ class LoginPage extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Text(TextForAllApp.headerLogin,
+            child: Text(ConstantText.headerLoginScreen,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2661FA),
@@ -114,7 +115,7 @@ class LoginPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Username"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldUsername),
               onChanged: (value) {
                 inputUsername = value;
               },
@@ -128,7 +129,7 @@ class LoginPage extends StatelessWidget {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: InputDecoration(labelText: ConstantText.headerTextFieldPassword),
               onChanged: (value) {
                 inputPassword = value;
               },
@@ -145,7 +146,7 @@ class LoginPage extends StatelessWidget {
             child: GestureDetector(
               onTap: () => goToForgotPasswordPage(context),
               child: Text(
-                "ForgotPassword",
+                ConstantText.buttonForgetPassword,
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -174,7 +175,7 @@ class LoginPage extends StatelessWidget {
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "LOGIN",
+                  ConstantText.buttonLogin,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -187,7 +188,7 @@ class LoginPage extends StatelessWidget {
             child: GestureDetector(
               onTap: () => goToRegisterPage(context),
               child: Text(
-                "Don't Have an Account? Sign up",
+                ConstantText.buttonSingUpToLogin,
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,

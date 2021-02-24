@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'package:flutter_app_clean_auth/core/widgets/background.dart';
-import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
-import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
 import 'package:flutter_app_clean_auth/features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
 import 'package:flutter_app_clean_auth/features/forgot_password/presentation/pages/page_change_password.dart';
 import 'package:flutter_app_clean_auth/features/login/presentation/pages/login_page.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 
 class SendRecoveryCodePage extends StatelessWidget {
-  String inputusername;
+  String inputUsername;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ChangePasswordPage(inputusername)));
+                    builder: (context) => ChangePasswordPage(inputUsername)));
           } else if (state is Loading) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
@@ -91,7 +90,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
-              "Forgot Password",
+              ConstantText.headerSendRecoveryCodePage,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2661FA),
@@ -105,12 +104,12 @@ class SendRecoveryCodePage extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
               decoration:
-                  InputDecoration(labelText: "Input PhoneNumber or Email"),
+                  InputDecoration(labelText: ConstantText.headerTextFieldSendRecoveryCodePage),
               onChanged: (value) {
-                inputusername = value;
+                inputUsername = value;
               },
               onSubmitted: (_) {
-                dispatchConcrete(context);
+                dispatchRecoveryCode(context);
               },
             ),
           ),
@@ -119,7 +118,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             alignment: Alignment.centerRight,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: RaisedButton(
-              onPressed: () => dispatchConcrete(context),
+              onPressed: () => dispatchRecoveryCode(context),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(80.0)),
               textColor: Colors.white,
@@ -136,7 +135,7 @@ class SendRecoveryCodePage extends StatelessWidget {
                     ])),
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "Send Code",
+                  ConstantText.buttonRecoveryCode,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -149,7 +148,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             child: GestureDetector(
               onTap: () => goToLoginPage(context),
               child: Text(
-                "Go Back To Login",
+                ConstantText.buttonRecoveryCodeToLogin,
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -162,9 +161,9 @@ class SendRecoveryCodePage extends StatelessWidget {
     );
   }
 
-  void dispatchConcrete(context) {
+  void dispatchRecoveryCode(context) {
     BlocProvider.of<ForgotPasswordBloc>(context)
-        .add(ClickButtonSendRecoveryCode(inputusername));
+        .add(ClickButtonSendRecoveryCode(inputUsername));
   }
 
   void goToLoginPage(context) {

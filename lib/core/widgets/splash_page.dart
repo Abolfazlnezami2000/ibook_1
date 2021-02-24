@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'file:///C:/Project/Flutter/flutter_app_clean_auth/lib/core/widgets/background.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -27,7 +28,7 @@ class SplashPage extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text('EBook',
+                      Text(ConstantText.splashText,
                           style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
                     ],
                   ),
