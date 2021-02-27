@@ -5,8 +5,8 @@ abstract class ConstantText {
   static final String splashText = 'IBook';
 
   // Login
-  static final String headerLoginScreen = 'Login';
-  static final String buttonSingUpToLogin = 'Dont Have an Account? Sign up';
+  static final String headerLoginScreen = 'ورود';
+  static final String buttonSingUpToLogin = 'آیا تا حالا اکانت نساختید ؟ ثبت نام';
 
   //Register
   static final String headerRegisterScreen = 'Register';
@@ -32,16 +32,16 @@ abstract class ConstantText {
 
   // Button
 
-  static final String buttonForgetPassword = 'Forget Password';
-  static final String buttonLogin = 'Login';
-  static final String buttonRegister = 'Register';
+  static final String buttonForgetPassword = 'فراموش کردن رمز';
+  static final String buttonLogin = 'ورود';
+  static final String buttonRegister = 'ثبت نام';
 
   // Text Field
 
-  static final String headerTextFieldUsername = 'Username';
+  static final String headerTextFieldUsername = 'نام کاربری';
   static final String headerTextFieldEmail = 'Email';
   static final String headerTextFieldName = 'Name';
-  static final String headerTextFieldPassword = 'Password';
+  static final String headerTextFieldPassword = 'رمز';
 
   // Text
 
