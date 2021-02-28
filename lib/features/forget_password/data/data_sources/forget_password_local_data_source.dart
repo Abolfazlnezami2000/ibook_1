@@ -1,21 +1,21 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/exceptions.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/data/models/change_password_forgot_password_model.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/data/models/send_recovery_code_forgot_password_model.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/data/models/change_password_forget_password_model.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/data/models/send_recovery_code_forget_password_model.dart';
 import 'package:http/http.dart' as http;
 
-abstract class ForgotPasswordRemoteDataSources {
+abstract class ForgetPasswordRemoteDataSources {
   Future<bool> changePassword(ChangePasswordModel modelChangePassword);
 
   Future<bool> sendRecoveryCode(SendRecoveryCodeModel modelSendRecoveryCode);
 }
 
-class ForgotPasswordRemoteDataSourcesImpl
-    implements ForgotPasswordRemoteDataSources {
+class ForgetPasswordRemoteDataSourcesImpl
+    implements ForgetPasswordRemoteDataSources {
   final http.Client client;
 
-  ForgotPasswordRemoteDataSourcesImpl({@required this.client});
+  ForgetPasswordRemoteDataSourcesImpl({@required this.client});
 
   @override
   Future<bool> changePassword(ChangePasswordModel modelChangePassword) async {

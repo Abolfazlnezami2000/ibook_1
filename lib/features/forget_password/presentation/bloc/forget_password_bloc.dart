@@ -4,19 +4,20 @@ import 'package:equatable/equatable.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_app_clean_auth/core/error/failures.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/domain/use_cases/change_password_forgot_password.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/domain/use_cases/send_recovery_code_forgot_password.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/domain/use_cases/change_password_forget_password.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/domain/use_cases/send_recovery_code_forget_password.dart';
 
-part 'forgot_password_event.dart';
 
-part 'forgot_password_state.dart';
+part 'forget_password_event.dart';
 
-class ForgotPasswordBloc
-    extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
+part 'forget_password_state.dart';
+
+class ForgetPasswordBloc
+    extends Bloc<ForgetPasswordEvent, ForgetPasswordState> {
   final ChangePasswordUseCase useCaseChangePassword;
   final SendRecoveryCodeUseCase useCaseSendRecoveryCode;
 
-  ForgotPasswordBloc(
+  ForgetPasswordBloc(
       {@required this.useCaseChangePassword,
       @required this.useCaseSendRecoveryCode})
       : assert(useCaseChangePassword != null),
@@ -24,8 +25,8 @@ class ForgotPasswordBloc
         super(Empty());
 
   @override
-  Stream<ForgotPasswordState> mapEventToState(
-    ForgotPasswordEvent event,
+  Stream<ForgetPasswordState> mapEventToState(
+    ForgetPasswordEvent event,
   ) async* {
     if (event is ClickButtonSendRecoveryCode) {
       yield Loading();

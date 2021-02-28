@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_clean_auth/features/login/domain/entities/login_entity.dart';
 
-class LoginModel{
+class LoginModel extends LoginEntity{
   final String username;
   final String password;
 

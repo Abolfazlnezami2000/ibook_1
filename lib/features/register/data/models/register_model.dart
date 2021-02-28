@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_clean_auth/features/register/domain/entities/register_entity.dart';
 
-class RegisterModel {
+class RegisterModel extends RegisterEntity{
   final String username;
   final String password;
   final String phonenumber;

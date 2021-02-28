@@ -11,12 +11,7 @@ import 'package:flutter_app_clean_auth/features/authentication/domain/use_cases/
 import 'package:flutter_app_clean_auth/features/authentication/domain/use_cases/find_token_authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/use_cases/save_token_authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/data/data_sources/forgot_password_local_data_source.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/data/repositories/forgot_password_repository_impl.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/domain/repositories/forgot_password_repository.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/domain/use_cases/change_password_forgot_password.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/domain/use_cases/send_recovery_code_forgot_password.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/presentation/bloc/forget_password_bloc.dart';
 import 'package:flutter_app_clean_auth/features/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flutter_app_clean_auth/features/login/data/repositories/login_repository_impl.dart';
 import 'package:flutter_app_clean_auth/features/login/domain/repositories/login_repository.dart';
@@ -24,14 +19,19 @@ import 'package:flutter_app_clean_auth/features/login/presentation/bloc/login_bl
 import 'package:flutter_app_clean_auth/features/register/data/data_sources/register_remote_data_source.dart';
 import 'package:flutter_app_clean_auth/features/register/data/repositories/register_repository_impl.dart';
 import 'package:flutter_app_clean_auth/features/register/domain/repositories/register_repository.dart';
-import 'package:flutter_app_clean_auth/features/register/domain/use_cases/register.dart';
+import 'package:flutter_app_clean_auth/features/register/domain/use_cases/register_usecase.dart';
 import 'package:flutter_app_clean_auth/features/register/presentation/bloc/register_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'core/network/network_info.dart';
 import 'features/activation/data/data_sources/activation_remote_data_source.dart';
-import 'features/login/domain/use_cases/login.dart';
+import 'features/forget_password/data/data_sources/forget_password_local_data_source.dart';
+import 'features/forget_password/data/repositories/forget_password_repository_impl.dart';
+import 'features/forget_password/domain/repositories/forget_password_repository.dart';
+import 'features/forget_password/domain/use_cases/change_password_forget_password.dart';
+import 'features/forget_password/domain/use_cases/send_recovery_code_forget_password.dart';
+import 'features/login/domain/use_cases/login_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -39,7 +39,7 @@ Future<void> init() async {
   await authenticationInjection();
   await loginInjection();
   await registerInjection();
-  await forgotPasswordInjection();
+  await forgetPasswordInjection();
   await activationInjection();
 }
 
@@ -93,7 +93,7 @@ Future<void> registerInjection() async {
   // Bloc Register
   sl.registerFactory(() => RegisterBloc(register: sl()));
   // Use cases Register
-  sl.registerLazySingleton(() => Register(sl()));
+  sl.registerLazySingleton(() => RegisterUseCase(sl()));
   //Repository Register
   sl.registerLazySingleton<RegisterRepository>(
       () => RegisterRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
@@ -102,19 +102,19 @@ Future<void> registerInjection() async {
       () => RegisterRemoteDataSourceImpl(client: sl()));
 }
 
-Future<void> forgotPasswordInjection() async {
+Future<void> forgetPasswordInjection() async {
   // Bloc Forgot Password
-  sl.registerFactory(() => ForgotPasswordBloc(
+  sl.registerFactory(() => ForgetPasswordBloc(
       useCaseChangePassword: sl(), useCaseSendRecoveryCode: sl()));
   // Use Case Forgot Password
   sl.registerLazySingleton(() => SendRecoveryCodeUseCase(sl()));
   sl.registerLazySingleton(() => ChangePasswordUseCase(sl()));
   // Repository Forgot Password
-  sl.registerLazySingleton<ForgotPasswordRepository>(() =>
-      ForgotPasswordRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<ForgetPasswordRepository>(() =>
+      ForgetPasswordRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   // Data Repository Forgot Password
   sl.registerLazySingleton(//can not add <ForgotPasswordRemoteDataSources>
-      () => ForgotPasswordRemoteDataSourcesImpl(client: sl()));
+      () => ForgetPasswordRemoteDataSourcesImpl(client: sl()));
 }
 
 Future<void> activationInjection() async {

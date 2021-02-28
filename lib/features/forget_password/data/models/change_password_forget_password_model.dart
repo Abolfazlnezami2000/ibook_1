@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/domain/entities/forget_password_entity.dart';
 
-class ChangePasswordModel  {
+class ChangePasswordModel extends ForgetPasswordEntity{
   final String code;
   final String password;
   final String username;
@@ -9,12 +10,7 @@ class ChangePasswordModel  {
     @required this.password,
     @required this.username
   });
-  // factory ChangePasswordModel.fromJson(Map<String, dynamic> json) {
-  //   return ChangePasswordModel(
-  //     code: json['code'],
-  //     password: json['password'],
-  //   );
-  // }
+
 
   Map<String, dynamic> toJson() {
     return {

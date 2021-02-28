@@ -1,8 +1,8 @@
-part of 'forgot_password_bloc.dart';
+part of 'forget_password_bloc.dart';
 
-abstract class ForgotPasswordEvent extends Equatable {}
+abstract class ForgetPasswordEvent extends Equatable {}
 
-class ClickButtonSendRecoveryCode extends ForgotPasswordEvent{
+class ClickButtonSendRecoveryCode extends ForgetPasswordEvent{
   final String email;
 
   ClickButtonSendRecoveryCode(this.email);
@@ -12,7 +12,7 @@ class ClickButtonSendRecoveryCode extends ForgotPasswordEvent{
   List<Object> get props => [email];
 
 }
-class ClickButtonChangePassword extends ForgotPasswordEvent{
+class ClickButtonChangePassword extends ForgetPasswordEvent{
 
   final String code;
   final String password;

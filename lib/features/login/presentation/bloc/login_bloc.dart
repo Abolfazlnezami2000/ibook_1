@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/failures.dart';
 import 'package:flutter_app_clean_auth/features/authentication/domain/entities/authentication.dart';
 import 'package:flutter_app_clean_auth/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:flutter_app_clean_auth/features/login/domain/use_cases/login.dart';
+import 'package:flutter_app_clean_auth/features/login/domain/use_cases/login_usecase.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

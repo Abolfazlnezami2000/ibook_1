@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/failures.dart';
 import 'package:flutter_app_clean_auth/core/usecases/usecases.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/domain/repositories/forgot_password_repository.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/domain/repositories/forget_password_repository.dart';
 
 class SendRecoveryCodeUseCase extends UseCase<bool , SendRecoveryCodeParams>{
-  final ForgotPasswordRepository repository;
+  final ForgetPasswordRepository repository;
 
   SendRecoveryCodeUseCase(this.repository);
 

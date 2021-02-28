@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
 import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/presentation/pages/page_send_recovery_code.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/presentation/pages/page_send_recovery_code.dart';
 import 'package:flutter_app_clean_auth/features/login/presentation/bloc/login_bloc.dart';
 import 'file:///C:/Project/Flutter/flutter_app_clean_auth/lib/core/widgets/background.dart';
 import 'package:flutter_app_clean_auth/features/register/presentation/pages/register_page.dart';

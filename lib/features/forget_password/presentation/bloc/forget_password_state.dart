@@ -1,21 +1,21 @@
-part of 'forgot_password_bloc.dart';
+part of 'forget_password_bloc.dart';
 
-abstract class ForgotPasswordState extends Equatable {
+abstract class ForgetPasswordState extends Equatable {
 }
 
-class Empty extends ForgotPasswordState {
+class Empty extends ForgetPasswordState {
   @override
   // TODO: implement props
   List<Object> get props => throw UnimplementedError();
 }
 
-class Loading extends ForgotPasswordState {
+class Loading extends ForgetPasswordState {
   @override
   // TODO: implement props
   List<Object> get props => throw UnimplementedError();
 }
 
-class Loaded extends ForgotPasswordState {
+class Loaded extends ForgetPasswordState {
   final String massage;
 
   Loaded({@required this.massage});
@@ -24,7 +24,7 @@ class Loaded extends ForgotPasswordState {
   List<Object> get props => [massage];
 }
 
-class Error extends ForgotPasswordState {
+class Error extends ForgetPasswordState {
   final String message;
 
   Error({@required this.message});

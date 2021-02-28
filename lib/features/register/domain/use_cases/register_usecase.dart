@@ -5,9 +5,9 @@ import 'package:flutter_app_clean_auth/core/error/failures.dart';
 import 'package:flutter_app_clean_auth/core/usecases/usecases.dart';
 import 'package:flutter_app_clean_auth/features/register/domain/repositories/register_repository.dart';
 
-class Register implements UseCase<bool, Params> {
+class RegisterUseCase implements UseCase<bool, Params> {
   final RegisterRepository repository;
-  Register(this.repository);
+  RegisterUseCase(this.repository);
 
   @override
   Future<Either<Failure, bool>> call(Params params) async {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_clean_auth/features/activation/domain/entities/activation_entity.dart';
 
-class ActivationModel {
+class ActivationModel extends ActivationEntity{
   final String code;
   final String username;
 

@@ -4,14 +4,14 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_clean_auth/core/error/failures.dart';
-import 'package:flutter_app_clean_auth/features/register/domain/use_cases/register.dart';
+import 'package:flutter_app_clean_auth/features/register/domain/use_cases/register_usecase.dart';
 
 part 'register_event.dart';
 
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final Register register;
+  final RegisterUseCase register;
 
   RegisterBloc({@required this.register})
       : assert(register != null),

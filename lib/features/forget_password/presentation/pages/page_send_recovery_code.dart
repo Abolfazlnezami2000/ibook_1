@@ -2,20 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_clean_auth/core/constant/Text.dart';
 import 'package:flutter_app_clean_auth/core/widgets/background.dart';
-import 'package:flutter_app_clean_auth/core/widgets/loading_widget.dart';
-import 'package:flutter_app_clean_auth/core/widgets/massage_display.dart';
-import 'package:flutter_app_clean_auth/features/forgot_password/presentation/bloc/forgot_password_bloc.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/presentation/bloc/forget_password_bloc.dart';
+import 'package:flutter_app_clean_auth/features/forget_password/presentation/pages/page_change_password.dart';
 import 'package:flutter_app_clean_auth/features/login/presentation/pages/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 
-class ChangePasswordPage extends StatelessWidget {
-  String inputCode;
-  String inputCodeMain;
-  String inputCodeAgain;
-  String username;
-
-  ChangePasswordPage(this.username);
+class SendRecoveryCodePage extends StatelessWidget {
+  String inputUsername;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +21,9 @@ class ChangePasswordPage extends StatelessWidget {
   }
 
   Widget buildBody(BuildContext context) {
-    return BlocProvider<ForgotPasswordBloc>(
-      create: (context) => sl<ForgotPasswordBloc>(),
-      child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
+    return BlocProvider<ForgetPasswordBloc>(
+      create: (context) => sl<ForgetPasswordBloc>(),
+      child: BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
         listener: (context, state) async {
           if (state is Loaded) {
             Scaffold.of(context)
@@ -44,10 +38,10 @@ class ChangePasswordPage extends StatelessWidget {
                 ),
               ));
             await Future.delayed(Duration(seconds: 5));
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-                ModalRoute.withName('/forgetpassword'));
+                MaterialPageRoute(
+                    builder: (context) => ChangePasswordPage(inputUsername)));
           } else if (state is Loading) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
@@ -62,7 +56,7 @@ class ChangePasswordPage extends StatelessWidget {
                 ),
               ));
             await Future.delayed(Duration(seconds: 15));
-          } else if (state is Error) {
+          }else if (state is Error){
             Scaffold.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -78,14 +72,16 @@ class ChangePasswordPage extends StatelessWidget {
         },
         // ignore: missing_return
         builder: (context, state) {
-          return ChangePasswordScreen(context);
+        return SendRecoveryCodeScreen(context);
         },
       ),
     );
   }
 
-  Widget ChangePasswordScreen(BuildContext context) {
+  // ignore: non_constant_identifier_names
+  Widget SendRecoveryCodeScreen(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Background(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -96,7 +92,7 @@ class ChangePasswordPage extends StatelessWidget {
               alignment: Alignment.centerRight,
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                ConstantText.headerResatPasswordPage,
+                ConstantText.headerSendRecoveryCodePage,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2661FA),
@@ -109,54 +105,22 @@ class ChangePasswordPage extends StatelessWidget {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 40),
               child: TextField(
-                decoration: InputDecoration(
-                    labelText: ConstantText.headerTextFieldRecoveryCode),
+                decoration:
+                    InputDecoration(labelText: ConstantText.headerTextFieldSendRecoveryCodePage),
                 onChanged: (value) {
-                  inputCode = value;
+                  inputUsername = value;
                 },
                 onSubmitted: (_) {
-                  dispatchConcrete(context);
+                  dispatchRecoveryCode(context);
                 },
               ),
             ),
             SizedBox(height: size.height * 0.03),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(horizontal: 40),
-              child: TextField(
-                decoration: InputDecoration(
-                    labelText: ConstantText.headerTextFieldNewPassword),
-                onChanged: (value) {
-                  inputCodeMain = value;
-                },
-                onSubmitted: (_) {
-                  dispatchConcrete(context);
-                },
-                obscureText: true,
-              ),
-            ),
-            SizedBox(height: size.height * 0.03),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(horizontal: 40),
-              child: TextField(
-                decoration: InputDecoration(
-                    labelText: ConstantText.headerTextFieldNewPasswordAgain),
-                onChanged: (value) {
-                  inputCodeAgain = value;
-                },
-                onSubmitted: (_) {
-                  dispatchConcrete(context);
-                },
-                obscureText: true,
-              ),
-            ),
-            SizedBox(height: size.height * 0.05),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: RaisedButton(
-                onPressed: () => dispatchConcrete(context),
+                onPressed: () => dispatchRecoveryCode(context),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
                 textColor: Colors.white,
@@ -173,25 +137,41 @@ class ChangePasswordPage extends StatelessWidget {
                       ])),
                   padding: const EdgeInsets.all(0),
                   child: Text(
-                    ConstantText.buttonChangePassword,
+                    ConstantText.buttonRecoveryCode,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: GestureDetector(
+                onTap: () => goToLoginPage(context),
+                child: Text(
+                  ConstantText.buttonRecoveryCodeToLogin,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2661FA)),
+                ),
+              ),
+            )
           ],
         ),
       ),
     );
   }
 
-  void dispatchConcrete(context) {
-    if (inputCodeMain == inputCodeAgain) {
-      BlocProvider.of<ForgotPasswordBloc>(context)
-          .add(ClickButtonChangePassword(inputCode, inputCodeMain, username));
-    } else {
-      // show popup
-    }
+  void dispatchRecoveryCode(context) {
+    BlocProvider.of<ForgetPasswordBloc>(context)
+        .add(ClickButtonSendRecoveryCode(inputUsername));
   }
+
+  void goToLoginPage(context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
 }
