@@ -96,111 +96,113 @@ class LoginPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Background(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            alignment: Alignment.centerRight,
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Text(ConstantText.headerLoginScreen,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF2661FA),
-                  fontSize: 36),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40),
-            child: TextField(
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.right,
-              decoration: InputDecoration(labelText: ConstantText.headerTextFieldUsername , ),
-              onChanged: (value) {
-                inputUsername = value;
-              },
-              onSubmitted: (_) {
-                dispatchConcrete(context);
-              },
-            ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40),
-            child: TextField(
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.right,
-              decoration: InputDecoration(labelText: ConstantText.headerTextFieldPassword),
-              onChanged: (value) {
-                inputPassword = value;
-              },
-              onSubmitted: (_) {
-                dispatchConcrete(context);
-              },
-              obscureText: true,
-            ),
-          ),
-          SizedBox(height: size.height * 0.05),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: GestureDetector(
-              onTap: () => goToForgotPasswordPage(context),
-              child: Text(
-                ConstantText.buttonForgetPassword,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Text(ConstantText.headerLoginScreen,
                 style: TextStyle(
-                    fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF2661FA)),
+                    color: Color(0xFF2661FA),
+                    fontSize: 36),
+                textAlign: TextAlign.left,
               ),
             ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: RaisedButton(
-              onPressed: () => dispatchConcrete(context),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0),
-              child: Container(
-                alignment: Alignment.center,
-                height: 50.0,
-                width: size.width * 0.5,
-                decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.circular(80.0),
-                    gradient: new LinearGradient(colors: [
-                      Color.fromARGB(255, 255, 136, 34),
-                      Color.fromARGB(255, 255, 177, 41)
-                    ])),
-                padding: const EdgeInsets.all(0),
+            SizedBox(height: size.height * 0.03),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              child: TextField(
+                textAlign: TextAlign.right,
+                decoration: InputDecoration(labelText: ConstantText.headerTextFieldUsername , ),
+                onChanged: (value) {
+                  inputUsername = value;
+                },
+                onSubmitted: (_) {
+                  dispatchConcrete(context);
+                },
+              ),
+            ),
+            SizedBox(height: size.height * 0.03),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              child: TextField(
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.right,
+                decoration: InputDecoration(labelText: ConstantText.headerTextFieldPassword),
+                onChanged: (value) {
+                  inputPassword = value;
+                },
+                onSubmitted: (_) {
+                  dispatchConcrete(context);
+                },
+                obscureText: true,
+              ),
+            ),
+            SizedBox(height: size.height * 0.05),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: GestureDetector(
+                onTap: () => goToForgotPasswordPage(context),
                 child: Text(
-                  ConstantText.buttonLogin,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  ConstantText.buttonForgetPassword,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2661FA)),
                 ),
               ),
             ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: GestureDetector(
-              onTap: () => goToRegisterPage(context),
-              child: Text(
-                ConstantText.buttonSingUpToLogin,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2661FA)),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: RaisedButton(
+                onPressed: () => dispatchConcrete(context),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50.0,
+                  width: size.width * 0.5,
+                  decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(80.0),
+                      gradient: new LinearGradient(colors: [
+                        Color.fromARGB(255, 255, 136, 34),
+                        Color.fromARGB(255, 255, 177, 41)
+                      ])),
+                  padding: const EdgeInsets.all(0),
+                  child: Text(
+                    ConstantText.buttonLogin,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: GestureDetector(
+                onTap: () => goToRegisterPage(context),
+                child: Text(
+                  ConstantText.buttonSingUpToLogin,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2661FA)),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -10,11 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 
 class ChangePasswordPage extends StatelessWidget {
-
   String inputCode;
   String inputCodeMain;
   String inputCodeAgain;
   String username;
+
   ChangePasswordPage(this.username);
 
   @override
@@ -30,7 +30,7 @@ class ChangePasswordPage extends StatelessWidget {
     return BlocProvider<ForgotPasswordBloc>(
       create: (context) => sl<ForgotPasswordBloc>(),
       child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
-        listener: (context, state) async{
+        listener: (context, state) async {
           if (state is Loaded) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
@@ -44,8 +44,10 @@ class ChangePasswordPage extends StatelessWidget {
                 ),
               ));
             await Future.delayed(Duration(seconds: 5));
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+                ModalRoute.withName('/forgetpassword'));
           } else if (state is Loading) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
@@ -60,7 +62,7 @@ class ChangePasswordPage extends StatelessWidget {
                 ),
               ));
             await Future.delayed(Duration(seconds: 15));
-          }else if (state is Error){
+          } else if (state is Error) {
             Scaffold.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -72,7 +74,6 @@ class ChangePasswordPage extends StatelessWidget {
                   ],
                 ),
               ));
-
           }
         },
         // ignore: missing_return
@@ -86,104 +87,110 @@ class ChangePasswordPage extends StatelessWidget {
   Widget ChangePasswordScreen(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            alignment: Alignment.centerRight,
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Text(
-              ConstantText.headerResatPasswordPage,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF2661FA),
-                  fontSize: 36),
-              textAlign: TextAlign.left,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Text(
+                ConstantText.headerResatPasswordPage,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2661FA),
+                    fontSize: 36),
+                textAlign: TextAlign.left,
+              ),
             ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40),
-            child: TextField(
-              decoration: InputDecoration(labelText: ConstantText.headerTextFieldRecoveryCode),
-              onChanged: (value) {
-                inputCode = value;
-              },
-              onSubmitted: (_) {
-                dispatchConcrete(context);
-              },
+            SizedBox(height: size.height * 0.03),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              child: TextField(
+                decoration: InputDecoration(
+                    labelText: ConstantText.headerTextFieldRecoveryCode),
+                onChanged: (value) {
+                  inputCode = value;
+                },
+                onSubmitted: (_) {
+                  dispatchConcrete(context);
+                },
+              ),
             ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40),
-            child: TextField(
-              decoration: InputDecoration(labelText: ConstantText.headerTextFieldNewPassword),
-              onChanged: (value) {
-                inputCodeMain = value;
-              },
-              onSubmitted: (_) {
-                dispatchConcrete(context);
-              },
-              obscureText: true,
+            SizedBox(height: size.height * 0.03),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              child: TextField(
+                decoration: InputDecoration(
+                    labelText: ConstantText.headerTextFieldNewPassword),
+                onChanged: (value) {
+                  inputCodeMain = value;
+                },
+                onSubmitted: (_) {
+                  dispatchConcrete(context);
+                },
+                obscureText: true,
+              ),
             ),
-          ),
-          SizedBox(height: size.height * 0.03),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 40),
-            child: TextField(
-              decoration: InputDecoration(labelText: ConstantText.headerTextFieldNewPasswordAgain),
-              onChanged: (value) {
-                inputCodeAgain = value;
-              },
-              onSubmitted: (_) {
-                dispatchConcrete(context);
-              },
-              obscureText: true,
+            SizedBox(height: size.height * 0.03),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              child: TextField(
+                decoration: InputDecoration(
+                    labelText: ConstantText.headerTextFieldNewPasswordAgain),
+                onChanged: (value) {
+                  inputCodeAgain = value;
+                },
+                onSubmitted: (_) {
+                  dispatchConcrete(context);
+                },
+                obscureText: true,
+              ),
             ),
-          ),
-          SizedBox(height: size.height * 0.05),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: RaisedButton(
-              onPressed: () => dispatchConcrete(context),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0),
-              child: Container(
-                alignment: Alignment.center,
-                height: 50.0,
-                width: size.width * 0.5,
-                decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.circular(80.0),
-                    gradient: new LinearGradient(colors: [
-                      Color.fromARGB(255, 255, 136, 34),
-                      Color.fromARGB(255, 255, 177, 41)
-                    ])),
+            SizedBox(height: size.height * 0.05),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: RaisedButton(
+                onPressed: () => dispatchConcrete(context),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                textColor: Colors.white,
                 padding: const EdgeInsets.all(0),
-                child: Text(
-                  ConstantText.buttonChangePassword,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50.0,
+                  width: size.width * 0.5,
+                  decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(80.0),
+                      gradient: new LinearGradient(colors: [
+                        Color.fromARGB(255, 255, 136, 34),
+                        Color.fromARGB(255, 255, 177, 41)
+                      ])),
+                  padding: const EdgeInsets.all(0),
+                  child: Text(
+                    ConstantText.buttonChangePassword,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   void dispatchConcrete(context) {
-    if(inputCodeMain ==  inputCodeAgain){
+    if (inputCodeMain == inputCodeAgain) {
       BlocProvider.of<ForgotPasswordBloc>(context)
-          .add(ClickButtonChangePassword(inputCode , inputCodeMain , username));
-    }else{
+          .add(ClickButtonChangePassword(inputCode, inputCodeMain, username));
+    } else {
       // show popup
     }
   }
