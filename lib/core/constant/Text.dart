@@ -9,24 +9,24 @@ abstract class ConstantText {
   static final String buttonSingUpToLogin = 'آیا تا حالا اکانت نساختید ؟ ثبت نام';
 
   //Register
-  static final String headerRegisterScreen = 'Register';
-  static final String buttonLoginToSingUp = 'Already Have an Account? Sign in';
+  static final String headerRegisterScreen = 'ثبت نام';
+  static final String buttonLoginToSingUp = 'تا حالا ثبت نام کردید ؟ ورود';
 
   //Forget Password
   // Page Send Recovery Code
 
-  static final String headerSendRecoveryCodePage = 'Send Recovery Code';
-  static final String headerTextFieldSendRecoveryCodePage = 'Phone Number or Email';
-  static final String buttonRecoveryCode = 'Send Recovery Code';
-  static final String buttonRecoveryCodeToLogin = 'Go Back To Login';
+  static final String headerSendRecoveryCodePage = 'ارسال کد تایید';
+  static final String headerTextFieldSendRecoveryCodePage = 'ایمیل یا شماره تلفن';
+  static final String buttonRecoveryCode = 'ارسال کد تایید';
+  static final String buttonRecoveryCodeToLogin = 'برگشت به صفحه ورود';
 
   // Page Change Password
 
-  static final String headerResatPasswordPage= 'Resat Password';
-  static final String headerTextFieldRecoveryCode = 'Recovery Code';
-  static final String headerTextFieldNewPassword = 'New Password';
-  static final String headerTextFieldNewPasswordAgain = 'New Password Again';
-  static final String buttonChangePassword = 'Change Password';
+  static final String headerResatPasswordPage= 'فراموشی رمز';
+  static final String headerTextFieldRecoveryCode = 'کد تایید';
+  static final String headerTextFieldNewPassword = 'پسورد جدید';
+  static final String headerTextFieldNewPasswordAgain = 'دوباره پسورد جدید';
+  static final String buttonChangePassword = 'عوض کردن پسورد';
 
   //General
 
@@ -39,8 +39,8 @@ abstract class ConstantText {
   // Text Field
 
   static final String headerTextFieldUsername = 'نام کاربری';
-  static final String headerTextFieldEmail = 'Email';
-  static final String headerTextFieldName = 'Name';
+  static final String headerTextFieldEmail = 'ایمیل';
+  static final String headerTextFieldName = 'اسم';
   static final String headerTextFieldPassword = 'رمز';
 
   // Text

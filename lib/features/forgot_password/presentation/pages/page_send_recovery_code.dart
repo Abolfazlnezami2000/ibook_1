@@ -87,7 +87,7 @@ class SendRecoveryCodePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.centerRight,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
               ConstantText.headerSendRecoveryCodePage,
@@ -115,7 +115,7 @@ class SendRecoveryCodePage extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.03),
           Container(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: RaisedButton(
               onPressed: () => dispatchRecoveryCode(context),
@@ -143,7 +143,7 @@ class SendRecoveryCodePage extends StatelessWidget {
             ),
           ),
           Container(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: GestureDetector(
               onTap: () => goToLoginPage(context),

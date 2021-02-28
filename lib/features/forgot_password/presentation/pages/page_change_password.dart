@@ -90,7 +90,7 @@ class ChangePasswordPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.centerRight,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
               ConstantText.headerResatPasswordPage,
@@ -147,7 +147,7 @@ class ChangePasswordPage extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Container(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: RaisedButton(
               onPressed: () => dispatchConcrete(context),

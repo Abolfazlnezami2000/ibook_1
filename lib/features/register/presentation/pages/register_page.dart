@@ -98,7 +98,7 @@ class RegisterPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.centerRight,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
               ConstantText.headerRegisterScreen,
@@ -168,7 +168,7 @@ class RegisterPage extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Container(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: RaisedButton(
               onPressed: () => GoToLoginPage(context),
@@ -196,7 +196,7 @@ class RegisterPage extends StatelessWidget {
             ),
           ),
           Container(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: GestureDetector(
               onTap: () => {
